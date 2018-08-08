@@ -64,7 +64,7 @@ section.has-light-background {
   box-shadow: none;
 }
 
-%slide-grid {
+@mixin has-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(5, 1fr);
@@ -72,84 +72,87 @@ section.has-light-background {
   max-height: 90vh;
 }
 
-.splash-slide {
-  @extend %slide-grid;
-  img {
-    grid-column: 1 / span 8;
-    grid-row: 1 / span 5;
-    place-self: center;
-  }
-}
-
-.title-slide {
-  @extend %slide-grid;
+@mixin has-main-title {
   h1 {
     grid-column: 1 / span 8;
     grid-row: 2;
     text-align: left;
     margin-left: 30px;
   }
+}
+
+@mixin has-subtitle {
   h2 {
     grid-column: 1 / span 5;
     grid-row: 3 / span 2;
     text-align: left;
     margin-left: 30px;
   }
-  img {
-    grid-column: 7 / span 2;
-    grid-row: 5;
-    justify-self: end;
-    align-self: end;
-    margin: 0;
+}
+
+@mixin has-title {
+  .title {
+    grid-column: 2 / span 6;
   }
 }
 
-.picture-text-slide {
-  @extend %slide-grid;
-  h1 {
+@mixin has-main-text {
+  .main-text {
     grid-column: 2 / span 6;
-  }
-  img.picture {
-    grid-column: 2 / span 2;
     grid-row: 2 / span 3;
     align-self: start;
-    justify-self: end;
-    border: 2px solid $mainColor;
-    margin: 0;
+    justify-self: center;
+    text-align: left;
+  }
+}
+
+@mixin has-left-text {
+  .left-text {
+    grid-column: 2 / span 3;
+    grid-row: 2 / span 3;
+    align-self: start;
+    justify-self: center;
+    text-align: left;
     margin-right: 20px;
   }
-  article {
-    grid-column: 4 / span 4;
+}
+
+@mixin has-right-text {
+  .right-text {
+    grid-column: 5 / span 3;
     grid-row: 2 / span 3;
     align-self: start;
-    justify-self: start;
+    justify-self: center;
     text-align: left;
     margin-left: 20px;
   }
-  img.logo {
-    grid-column: 8;
-    grid-row: 5;
-    align-self: end;
-    justify-self: end;
-    width: 25%;
+}
+
+@mixin has-main-picture {
+  .main-picture {
+    grid-column: 2 / span 6;
+    grid-row: 2 / span 3;
+    align-self: start;
+    justify-self: center;
+    border: 2px solid $mainColor;
     margin: 0;
   }
 }
 
-.text-picture-slide {
-  @extend %slide-grid;
-  h1 {
-    grid-column: 2 / span 6;
-  }
-  article {
+@mixin has-left-picture {
+  .left-picture {
     grid-column: 2 / span 3;
     grid-row: 2 / span 3;
     align-self: start;
     justify-self: start;
-    text-align: left;
+    border: 2px solid $mainColor;
+    margin: 0;
     margin-right: 20px;
   }
-  img.picture {
+}
+
+@mixin has-right-picture {
+  .right-picture {
     grid-column: 5 / span 3;
     grid-row: 2 / span 3;
     align-self: start;
@@ -158,7 +161,28 @@ section.has-light-background {
     margin: 0;
     margin-left: 20px;
   }
-  img.logo {
+}
+
+@mixin has-splash {
+  .splash {
+    grid-column: 1 / span 8;
+    grid-row: 1 / span 5;
+    place-self: center;
+  }
+}
+
+@mixin has-logo {
+  .logo {
+    grid-column: 7 / span 2;
+    grid-row: 5;
+    justify-self: end;
+    align-self: end;
+    margin: 0;
+  }
+}
+
+@mixin has-icon-logo {
+  .logo {
     grid-column: 8;
     grid-row: 5;
     align-self: end;
@@ -168,32 +192,109 @@ section.has-light-background {
   }
 }
 
-.text-with-icon-slide {
-  @extend %slide-grid;
-  h1 {
-    grid-column: 2 / span 6;
-  }
-  img.icon {
-    grid-column: 2;
-    grid-row: 2;
-    align-self: start;
-    justify-self: center;
-    margin: 0;
-  }
-  article {
-    grid-column: 3 / span 5;
+@mixin has-headshot {
+  .headshot {
+    grid-column: 2 / span 2;
     grid-row: 2 / span 3;
-    align-self: start;
-    justify-self: start;
-    text-align: left;
-    margin-left: 20px;
-  }
-  img.logo {
-    grid-column: 8;
-    grid-row: 5;
-    align-self: end;
-    justify-self: end;
-    width: 25%;
+    justify-self: center;
+    align-self: center;
+    border-radius: 50%;
     margin: 0;
   }
 }
+
+@mixin has-about {
+  .about {
+    grid-column: 4 / span 4;
+    grid-row: 2 / span 3;
+    justify-self: start;
+    align-self: center;
+    text-align: left;
+    padding: 30px;
+    padding-left: 60px;
+    margin-left: 60px;
+    border-left-style: solid;
+    border-left-color: $mainColor;
+    border-left-width: 2px;
+    .name, .title, .employer, .email, .twitter {
+      margin: 0;
+    }
+    .employer {
+      margin-bottom: 60px;
+    }
+  }
+}
+
+.splash-slide {
+  @include has-grid();
+  @include has-splash();
+}
+
+.about-slide {
+  @include has-grid();
+  @include has-headshot();
+  @include has-about();
+  @include has-icon-logo();
+}
+
+.title-slide {
+  @include has-grid();
+  @include has-main-title();
+  @include has-subtitle();
+  @include has-logo();
+}
+
+.text-slide {
+  @include has-grid();
+  @include has-title();
+  @include has-main-text();
+  @include has-icon-logo();
+}
+
+.picture-slide {
+  @include has-grid();
+  @include has-title();
+  @include has-main-picture();
+  @include has-icon-logo();
+}
+
+.text-text-slide {
+  @include has-grid();
+  @include has-title();
+  @include has-left-text();
+  @include has-right-text();
+  @include has-icon-logo();
+}
+
+.picture-picture-slide {
+  @include has-grid();
+  @include has-title();
+  @include has-left-picture();
+  @include has-right-picture();
+  @include has-icon-logo();
+}
+
+.picture-text-slide {
+  @include has-grid();
+  @include has-title();
+  @include has-left-picture();
+  @include has-right-text();
+  @include has-icon-logo();
+}
+
+.text-picture-slide {
+  @include has-grid();
+  @include has-title();
+  @include has-left-text();
+  @include has-right-picture();
+  @include has-icon-logo();
+}
+
+.text-with-icon-slide {
+  @include has-grid();
+  @include has-title();
+  @include has-left-picture();
+  @include has-right-text();
+  @include has-icon-logo();
+}
+
