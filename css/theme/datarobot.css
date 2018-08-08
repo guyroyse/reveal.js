@@ -285,6 +285,16 @@ body {
   border: 4px solid #000;
   box-shadow: none; }
 
+.reveal ul {
+  margin-left: 60px; }
+
+.reveal pre {
+  margin: 20px 0;
+  width: 100%; }
+
+.reveal pre code {
+  padding: 15px; }
+
 .splash-slide {
   display: grid;
   grid-template-columns: repeat(8, 1fr);

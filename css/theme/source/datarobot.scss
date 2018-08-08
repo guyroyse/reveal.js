@@ -64,6 +64,19 @@ section.has-light-background {
   box-shadow: none;
 }
 
+.reveal ul {
+  margin-left: 60px;
+}
+
+.reveal pre {
+  margin: 20px 0;
+  width: 100%;
+}
+
+.reveal pre code {
+  padding: 15px;
+}
+
 @mixin has-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
